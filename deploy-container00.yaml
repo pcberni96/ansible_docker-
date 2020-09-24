@@ -1,0 +1,23 @@
+---
+- name: Deploy Docker Container
+  hosts: all
+  vars:
+    image_container: centos/httpd-24-centos7:latest
+  tasks:
+
+  - name: Login into Docker Hub
+    docker_login:
+      username: pcberni96
+      password: Paulo+0507
+      email: pbernal@compusoluciones.com
+
+  - name: Pull image for built container
+    docker_image:
+      name: "{{ image_container }}"
+      pull: yes
+
+  - name: Create container from Image
+    docker_container:
+      name: first_container
+      image: "{{ image_container }}"
+      state: started
