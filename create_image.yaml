@@ -1,0 +1,13 @@
+---
+- name: Build an image
+  hosts: all
+  
+  tasks:
+  
+     - name: Create a Docker Image 
+       docker_image:
+         build:
+           path: /docker_images/image00
+         name: container-image
+         tag: v1
+         source: build
