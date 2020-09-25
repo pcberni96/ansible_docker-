@@ -3,6 +3,8 @@
   hosts: all
   vars:
     image_container: centos/httpd-24-centos7:latest
+    name_container: webapp
+    num_of_container: 1
   tasks:
 
   - name: Login into Docker Hub
@@ -18,6 +20,7 @@
 
   - name: Create container from Image
     docker_container:
-      name: first_container
+      name: "{{ name_container }}{{ item }}"
       image: "{{ image_container }}"
       state: started
+    with_sequence: count={{ num_of_container }}
